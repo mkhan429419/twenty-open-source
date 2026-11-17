@@ -27,6 +27,13 @@ describe('areViewSortsEqual', () => {
     expect(areViewSortsEqual(sortA, sortB)).toBe(false);
   });
 
+  it('should return false when position is different', () => {
+    const sortA = { ...baseSort, position: 0 };
+    const sortB = { ...baseSort, position: 1 };
+
+    expect(areViewSortsEqual(sortA, sortB)).toBe(false);
+  });
+
   it('should return false when fieldMetadataId is different', () => {
     const sortA = { ...baseSort };
     const sortB = { ...baseSort, fieldMetadataId: 'field-2' };

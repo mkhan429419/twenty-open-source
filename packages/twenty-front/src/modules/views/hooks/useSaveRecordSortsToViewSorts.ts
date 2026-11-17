@@ -36,7 +36,10 @@ export const useSaveRecordSortsToViewSorts = () => {
 
     const currentRecordSorts = store.get(currentRecordSortsCallbackState);
 
-    const newViewSorts = currentRecordSorts.map(mapRecordSortToViewSort);
+    const newViewSorts = currentRecordSorts.map((recordSort, position) => ({
+      ...mapRecordSortToViewSort(recordSort),
+      position,
+    }));
 
     const viewSortsToCreate = getViewSortsToCreate(
       currentViewSorts,
@@ -59,6 +62,7 @@ export const useSaveRecordSortsToViewSorts = () => {
         fieldMetadataId: viewSort.fieldMetadataId,
         viewId: currentView.id,
         direction: viewSort.direction,
+        position: viewSort.position,
         subFieldName: viewSort.subFieldName ?? null,
       },
     }));
@@ -68,6 +72,7 @@ export const useSaveRecordSortsToViewSorts = () => {
         id: viewSort.id,
         update: {
           direction: viewSort.direction,
+          position: viewSort.position,
           subFieldName: viewSort.subFieldName ?? null,
         },
       },

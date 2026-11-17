@@ -83,6 +83,15 @@ describe('getViewSortsToUpdate', () => {
     expect(result).toEqual([{ ...sortOnOtherSubField, id: savedSort.id }]);
   });
 
+  it('should update the saved sort when its priority changes', () => {
+    const savedSort = { ...baseSort, position: 0 } satisfies ViewSort;
+    const reorderedSort = { ...baseSort, position: 1 } satisfies ViewSort;
+
+    const result = getViewSortsToUpdate([savedSort], [reorderedSort]);
+
+    expect(result).toEqual([reorderedSort]);
+  });
+
   it('should not update the saved sort when it came back unchanged under a new id', () => {
     const sortBackOnItsField = { ...baseSort, id: 'sort-2' } satisfies ViewSort;
 

@@ -13,9 +13,11 @@ export const fromCreateViewSortInputToFlatViewSortToCreate = ({
   flatApplication,
   flatFieldMetadataMaps,
   flatViewMaps,
+  position,
 }: {
   createViewSortInput: CreateViewSortInput;
   flatApplication: FlatApplication;
+  position: number;
 } & Pick<
   AllFlatEntityMaps,
   'flatViewMaps' | 'flatFieldMetadataMaps'
@@ -53,6 +55,7 @@ export const fromCreateViewSortInputToFlatViewSortToCreate = ({
     deletedAt: null,
     universalIdentifier: createViewSortInput.universalIdentifier ?? v4(),
     direction: createViewSortInput.direction ?? ViewSortDirection.ASC,
+    position,
     subFieldName: createViewSortInput.subFieldName ?? null,
     applicationUniversalIdentifier: flatApplication.universalIdentifier,
   };

@@ -226,9 +226,21 @@ export const reconstructViewsManifest = ({
     }
   }
 
-  for (const flatViewSort of sortFlatEntitiesByUniversalIdentifier(
-    applicationAllFlatEntityMaps.flatViewSortMaps,
-  )) {
+  for (const flatViewSort of Object.values(
+    applicationAllFlatEntityMaps.flatViewSortMaps.byUniversalIdentifier,
+  )
+    .filter(isDefined)
+    .sort((firstFlatViewSort, secondFlatViewSort) => {
+      // Export rows have no id. createdAt, then universalIdentifier, matches the API when positions tie.
+      return (
+        (firstFlatViewSort.position ?? 0) -
+          (secondFlatViewSort.position ?? 0) ||
+        firstFlatViewSort.createdAt.localeCompare(
+          secondFlatViewSort.createdAt,
+        ) ||
+        compareByUniversalIdentifier(firstFlatViewSort, secondFlatViewSort)
+      );
+    })) {
     if (
       decideViewChild({
         metadataName: 'viewSort',

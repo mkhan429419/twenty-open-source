@@ -2151,6 +2151,7 @@ export type CreateViewSortInput = {
   direction?: InputMaybe<ViewSortDirection>;
   fieldMetadataId: Scalars['UUID']['input'];
   id?: InputMaybe<Scalars['UUID']['input']>;
+  position?: InputMaybe<Scalars['Float']['input']>;
   subFieldName?: InputMaybe<Scalars['String']['input']>;
   viewId: Scalars['UUID']['input'];
 };
@@ -8269,6 +8270,7 @@ export type UpdateViewSortInput = {
 
 export type UpdateViewSortInputUpdates = {
   direction?: InputMaybe<ViewSortDirection>;
+  position?: InputMaybe<Scalars['Float']['input']>;
   subFieldName?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -8938,6 +8940,7 @@ export type ViewSort = {
   direction: ViewSortDirection;
   fieldMetadataId: Scalars['UUID']['output'];
   id: Scalars['UUID']['output'];
+  position?: Maybe<Scalars['Float']['output']>;
   subFieldName?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['DateTime']['output'];
   viewId: Scalars['UUID']['output'];

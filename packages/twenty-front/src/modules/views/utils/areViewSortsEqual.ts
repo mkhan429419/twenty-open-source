@@ -4,6 +4,7 @@ import { compareStrictlyExceptForNullAndUndefined } from '~/utils/compareStrictl
 type ViewSortComparableFields =
   | 'fieldMetadataId'
   | 'direction'
+  | 'position'
   | 'subFieldName';
 
 export const areViewSortsEqual = (
@@ -13,6 +14,7 @@ export const areViewSortsEqual = (
   const propertiesToCompare: ViewSortComparableFields[] = [
     'fieldMetadataId',
     'direction',
+    'position',
     'subFieldName',
   ];
 

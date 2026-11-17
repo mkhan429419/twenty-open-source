@@ -24,6 +24,7 @@ const forward = (viewSortManifest: ViewSortManifest) =>
     viewSortManifest,
     viewUniversalIdentifier: VIEW_UID,
     applicationUniversalIdentifier: APP_UID,
+    position: 0,
     now: NOW,
   });
 
@@ -52,6 +53,7 @@ describe('fromFlatViewSortToViewSortManifest', () => {
       viewUniversalIdentifier: VIEW_UID,
       fieldMetadataUniversalIdentifier: FIELD_UID,
       direction: ViewSortDirection.ASC,
+      position: 0,
       subFieldName: null,
       createdAt: NOW,
       updatedAt: NOW,

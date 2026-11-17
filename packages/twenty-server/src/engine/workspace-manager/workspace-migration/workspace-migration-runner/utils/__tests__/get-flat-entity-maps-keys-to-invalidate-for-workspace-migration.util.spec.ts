@@ -21,6 +21,19 @@ describe('getFlatEntityMapsKeysToInvalidateForWorkspaceMigration', () => {
     expect(result).toEqual(['flatViewFieldMaps']);
   });
 
+  it('invalidates the view map when a view sort priority changes', () => {
+    const result = getFlatEntityMapsKeysToInvalidateForWorkspaceMigration([
+      buildAction({
+        type: 'update',
+        metadataName: 'viewSort',
+        universalIdentifier: 'view-sort-1',
+        update: { position: 1 },
+      }),
+    ]);
+
+    expect(result.sort()).toEqual(['flatViewMaps', 'flatViewSortMaps'].sort());
+  });
+
   it('invalidates the view field group map when a viewField update moves it between groups', () => {
     const result = getFlatEntityMapsKeysToInvalidateForWorkspaceMigration([
       buildAction({

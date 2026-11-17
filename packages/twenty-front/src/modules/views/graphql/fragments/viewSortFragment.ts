@@ -5,6 +5,7 @@ export const VIEW_SORT_FRAGMENT = gql`
     id
     fieldMetadataId
     direction
+    position
     subFieldName
     viewId
     createdAt

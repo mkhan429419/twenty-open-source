@@ -16,10 +16,12 @@ describe('fromViewSortManifestToUniversalFlatViewSort', () => {
       },
       viewUniversalIdentifier,
       applicationUniversalIdentifier,
+      position: 0,
       now,
     });
 
     expect(result.universalIdentifier).toBe('vsort-uuid-1');
+    expect(result.position).toBe(0);
     expect(result.fieldMetadataUniversalIdentifier).toBe('field-uuid-1');
     expect(result.viewUniversalIdentifier).toBe(viewUniversalIdentifier);
     expect(result.applicationUniversalIdentifier).toBe(
@@ -42,10 +44,12 @@ describe('fromViewSortManifestToUniversalFlatViewSort', () => {
       },
       viewUniversalIdentifier,
       applicationUniversalIdentifier,
+      position: 1,
       now,
     });
 
     expect(result.subFieldName).toBe('amountMicros');
+    expect(result.position).toBe(1);
   });
 
   it('should convert a view sort manifest with DESC direction', () => {
@@ -57,6 +61,7 @@ describe('fromViewSortManifestToUniversalFlatViewSort', () => {
       },
       viewUniversalIdentifier,
       applicationUniversalIdentifier,
+      position: 2,
       now,
     });
 
