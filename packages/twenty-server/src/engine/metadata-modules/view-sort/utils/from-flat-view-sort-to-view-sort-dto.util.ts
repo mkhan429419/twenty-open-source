@@ -4,10 +4,11 @@ import { type ViewSortDTO } from 'src/engine/metadata-modules/view-sort/dtos/vie
 export const fromFlatViewSortToViewSortDto = (
   flatViewSort: FlatViewSort,
 ): ViewSortDTO => {
-  const { createdAt, updatedAt, deletedAt, ...rest } = flatViewSort;
+  const { createdAt, updatedAt, deletedAt, position, ...rest } = flatViewSort;
 
   return {
     ...rest,
+    position,
     createdAt: new Date(createdAt),
     updatedAt: new Date(updatedAt),
     deletedAt: deletedAt ? new Date(deletedAt) : null,

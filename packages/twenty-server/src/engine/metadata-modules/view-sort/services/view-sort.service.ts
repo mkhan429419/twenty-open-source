@@ -54,19 +54,38 @@ export class ViewSortService {
         },
       );
 
-    const { flatFieldMetadataMaps, flatViewMaps } =
+    const { flatFieldMetadataMaps, flatViewMaps, flatViewSortMaps } =
       await this.flatEntityMapsCacheService.getOrRecomputeManyOrAllFlatEntityMaps(
         {
           workspaceId,
-          flatMapsKeys: ['flatFieldMetadataMaps', 'flatViewMaps'],
+          flatMapsKeys: [
+            'flatFieldMetadataMaps',
+            'flatViewMaps',
+            'flatViewSortMaps',
+          ],
         },
       );
+
+    // An omitted position appends, so one new sort stays after the ones already on the view.
+    const position = isDefined(createViewSortInput.position)
+      ? createViewSortInput.position
+      : Math.max(
+          -1,
+          ...Object.values(flatViewSortMaps.byUniversalIdentifier)
+            .filter(isDefined)
+            .filter(
+              (flatViewSort) =>
+                flatViewSort.viewId === createViewSortInput.viewId,
+            )
+            .map((flatViewSort) => flatViewSort.position ?? -1),
+        ) + 1;
 
     const flatViewSortToCreate = fromCreateViewSortInputToFlatViewSortToCreate({
       createViewSortInput,
       flatApplication: workspaceCustomFlatApplication,
       flatFieldMetadataMaps,
       flatViewMaps,
+      position,
     });
 
     const buildAndRunResult =

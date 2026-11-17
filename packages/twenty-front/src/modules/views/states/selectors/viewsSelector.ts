@@ -10,6 +10,7 @@ import { type FlatViewSort } from '@/metadata-store/types/FlatViewSort';
 import { createAtomSelector } from '@/ui/utilities/state/jotai/utils/createAtomSelector';
 import { type ViewWithRelations } from '@/views/types/ViewWithRelations';
 import { resolveViewNamePlaceholders } from '@/views/utils/resolveViewNamePlaceholders';
+import { sortViewSortsByPriority } from '@/views/utils/sortViewSortsByPriority';
 
 export const viewsSelector = createAtomSelector<ViewWithRelations[]>({
   key: 'viewsSelector',
@@ -98,7 +99,7 @@ export const viewsSelector = createAtomSelector<ViewWithRelations[]>({
       ),
       viewFields: viewFieldsByViewId.get(view.id) ?? [],
       viewFilters: viewFiltersByViewId.get(view.id) ?? [],
-      viewSorts: viewSortsByViewId.get(view.id) ?? [],
+      viewSorts: sortViewSortsByPriority(viewSortsByViewId.get(view.id) ?? []),
       viewGroups: viewGroupsByViewId.get(view.id) ?? [],
       viewFilterGroups: viewFilterGroupsByViewId.get(view.id) ?? [],
       viewFieldGroups: (viewFieldGroupsByViewId.get(view.id) ?? []).map(

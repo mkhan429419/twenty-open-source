@@ -76,6 +76,15 @@ export const getFlatEntityMapsKeysToInvalidateForWorkspaceMigration = (
     for (const metadataName of affectedMetadataNames) {
       metadataNamesToInvalidate.add(metadataName);
     }
+
+    // viewSortIds is the priority order, and position is not a foreign key.
+    if (
+      action.type === 'update' &&
+      action.metadataName === 'viewSort' &&
+      isDefined(action.update.position)
+    ) {
+      metadataNamesToInvalidate.add('view');
+    }
   }
 
   return [...metadataNamesToInvalidate].map(getMetadataFlatEntityMapsKey);

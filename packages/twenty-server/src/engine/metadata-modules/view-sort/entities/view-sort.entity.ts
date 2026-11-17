@@ -11,8 +11,11 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { FieldMetadataEntity } from 'src/engine/metadata-modules/field-metadata/field-metadata.entity';
 import { ViewSortDirection } from 'twenty-shared/types';
+
+import { ADD_VIEW_SORT_POSITION_UPGRADE_COMMAND_NAME } from 'src/database/commands/upgrade-version-command/2-60/add-view-sort-position-upgrade-command-name.constant';
+import { WasIntroducedInUpgrade } from 'src/engine/core-modules/upgrade/decorators/was-introduced-in-upgrade.decorator';
+import { FieldMetadataEntity } from 'src/engine/metadata-modules/field-metadata/field-metadata.entity';
 import { ViewEntity } from 'src/engine/metadata-modules/view/entities/view.entity';
 import { SyncableEntity } from 'src/engine/workspace-manager/types/syncable-entity.interface';
 
@@ -51,6 +54,12 @@ export class ViewSortEntity extends SyncableEntity {
 
   @Column({ nullable: true, type: 'varchar' })
   subFieldName?: string | null;
+
+  @WasIntroducedInUpgrade({
+    upgradeCommandName: ADD_VIEW_SORT_POSITION_UPGRADE_COMMAND_NAME,
+  })
+  @Column({ nullable: false, type: 'double precision', default: 0 })
+  position: number;
 
   @Column({ nullable: false, type: 'uuid' })
   viewId: string;

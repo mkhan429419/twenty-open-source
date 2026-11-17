@@ -19,6 +19,9 @@ export class ViewSortDTO {
   })
   direction: ViewSortDirection;
 
+  @Field(() => Number, { nullable: true })
+  position?: number | null;
+
   @Field(() => String, { nullable: true })
   subFieldName?: string | null;
 

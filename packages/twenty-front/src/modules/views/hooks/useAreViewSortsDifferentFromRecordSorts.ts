@@ -20,7 +20,10 @@ export const useAreViewSortsDifferentFromRecordSorts = () => {
       return false;
     }
     const viewSortsFromCurrentRecordSorts = currentRecordSorts.map(
-      (recordSort) => mapRecordSortToViewSort(recordSort),
+      (recordSort, position) => ({
+        ...mapRecordSortToViewSort(recordSort),
+        position,
+      }),
     );
 
     const viewSortsToCreate = getViewSortsToCreate(

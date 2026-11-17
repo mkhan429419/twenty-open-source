@@ -3,6 +3,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import {
   IsEnum,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   IsUUID,
@@ -19,6 +20,11 @@ class UpdateViewSortInputUpdates {
   @IsEnum(ViewSortDirection)
   @Field(() => ViewSortDirection, { nullable: true })
   direction?: ViewSortDirection;
+
+  @IsOptional()
+  @IsNumber()
+  @Field({ nullable: true })
+  position?: number;
 
   @IsOptional()
   @IsString()

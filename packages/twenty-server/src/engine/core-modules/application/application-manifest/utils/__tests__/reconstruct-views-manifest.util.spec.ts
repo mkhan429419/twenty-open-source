@@ -317,14 +317,17 @@ const buildFlatViewGroup = ({
 const buildFlatViewSort = ({
   viewSortManifest,
   viewUniversalIdentifier,
+  position = 0,
 }: {
   viewSortManifest: ViewSortManifest;
   viewUniversalIdentifier: string;
+  position?: number;
 }): FlatViewSort => ({
   ...fromViewSortManifestToUniversalFlatViewSort({
     viewSortManifest,
     viewUniversalIdentifier,
     applicationUniversalIdentifier: APP_UID,
+    position,
     now: NOW,
   }),
   id: `${viewSortManifest.universalIdentifier}-id`,
@@ -522,10 +525,12 @@ describe('reconstructViewsManifest', () => {
           buildFlatViewSort({
             viewSortManifest: AGE_SORT_MANIFEST,
             viewUniversalIdentifier: ALL_PETS_VIEW_UID,
+            position: 1,
           }),
           buildFlatViewSort({
             viewSortManifest: NAME_SORT_MANIFEST,
             viewUniversalIdentifier: ALL_PETS_VIEW_UID,
+            position: 0,
           }),
         ],
       }),
@@ -547,7 +552,7 @@ describe('reconstructViewsManifest', () => {
         filterGroups: [ROOT_FILTER_GROUP_MANIFEST],
         groups: [DOG_GROUP_MANIFEST],
         fieldGroups: [DETAILS_FIELD_GROUP_MANIFEST],
-        sorts: [AGE_SORT_MANIFEST, NAME_SORT_MANIFEST],
+        sorts: [NAME_SORT_MANIFEST, AGE_SORT_MANIFEST],
       },
     ]);
     expect(viewFields).toEqual([]);

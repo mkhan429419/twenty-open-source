@@ -215,12 +215,13 @@ export const useCreateViewFromCurrentView = (viewBarComponentId?: string) => {
           viewFiltersToDuplicate: viewFiltersToCopy,
         });
 
-        const viewSortsToCreate = currentRecordSorts
-          .map((recordSort) => mapRecordSortToViewSort(recordSort))
-          .map((viewSort) => ({
-            ...viewSort,
+        const viewSortsToCreate = currentRecordSorts.map(
+          (recordSort, position) => ({
+            ...mapRecordSortToViewSort(recordSort),
             id: v4(),
-          }));
+            position,
+          }),
+        );
 
         const filterGroupResult = await performViewFilterGroupApiCreate(
           viewFilterGroupsToCreate,
@@ -264,6 +265,7 @@ export const useCreateViewFromCurrentView = (viewBarComponentId?: string) => {
             fieldMetadataId: viewSort.fieldMetadataId,
             viewId: newViewId,
             direction: viewSort.direction,
+            position: viewSort.position,
           },
         }));
 

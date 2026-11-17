@@ -998,7 +998,7 @@ export class ViewWidgetUpsertService {
     const sortsToUpdate: FlatViewSort[] = [];
     const inputSortIds = new Set(inputSorts.map((s) => s.id).filter(isDefined));
 
-    for (const inputSort of inputSorts) {
+    for (const [position, inputSort] of inputSorts.entries()) {
       const existingSort = isDefined(inputSort.id)
         ? existingViewSorts.find((s) => s.id === inputSort.id)
         : undefined;
@@ -1030,6 +1030,7 @@ export class ViewWidgetUpsertService {
           viewId,
           viewUniversalIdentifier,
           direction: inputSort.direction ?? ViewSortDirection.ASC,
+          position,
           createdAt: now,
           updatedAt: now,
           deletedAt: null,
@@ -1037,7 +1038,8 @@ export class ViewWidgetUpsertService {
       } else {
         const hasChanged =
           existingSort.fieldMetadataId !== inputSort.fieldMetadataId ||
-          existingSort.direction !== inputSort.direction;
+          existingSort.direction !== inputSort.direction ||
+          existingSort.position !== position;
 
         if (hasChanged) {
           const { fieldMetadataUniversalIdentifier } =
@@ -1056,6 +1058,7 @@ export class ViewWidgetUpsertService {
             fieldMetadataId: inputSort.fieldMetadataId,
             fieldMetadataUniversalIdentifier,
             direction: inputSort.direction ?? existingSort.direction,
+            position,
             updatedAt: now,
           });
         }

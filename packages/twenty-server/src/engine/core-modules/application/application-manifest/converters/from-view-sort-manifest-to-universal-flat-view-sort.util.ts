@@ -6,11 +6,13 @@ export const fromViewSortManifestToUniversalFlatViewSort = ({
   viewSortManifest,
   viewUniversalIdentifier,
   applicationUniversalIdentifier,
+  position,
   now,
 }: {
   viewSortManifest: ViewSortManifest;
   viewUniversalIdentifier: string;
   applicationUniversalIdentifier: string;
+  position: number;
   now: string;
 }): UniversalFlatViewSort => {
   return {
@@ -20,6 +22,7 @@ export const fromViewSortManifestToUniversalFlatViewSort = ({
       viewSortManifest.fieldMetadataUniversalIdentifier,
     viewUniversalIdentifier,
     direction: viewSortManifest.direction,
+    position,
     subFieldName: viewSortManifest.subFieldName ?? null,
     createdAt: now,
     updatedAt: now,
